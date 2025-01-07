@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="name">Name:</label>
+    <input type="text" id="name" />
+    <br />
+    <label for="email">Email:</label>
+    <input type="email" id="email" />
+    <br /><br />
+    <button id="addBtn">Add New</button>
+
+    <script>
+      var nameInput = document.getElementById("name");
+      var emailInput = document.getElementById("email");
+      var addBtn = document.getElementById("addBtn");
+
+      addBtn.addEventListener("click", function () {
+        var userData = {
+          Name: nameInput.value,
+          Email: emailInput.value,
+        };
+
+        var userDataString = JSON.stringify(userData);
+        localStorage.setItem("UsersData", userDataString);
+
+        nameInput.value = "";
+        emailInput.value = "";
+
+        displayData();
+      });
+
+      function displayData() {
+        var storedData = JSON.parse(localStorage.getItem("UsersData"));
+        console.log(storedData); 
+      }
+    </script>
+  </body>
+</html>

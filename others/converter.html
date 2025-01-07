@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1rem  =  16px  -->
+     <!-- 334rem -->
+
+     <label for="">Enter Rem</label>
+     <input type="number" id="rem" oninput="Rem()">
+     <label for="">Enter Px</label>
+     <input type="number" id="px" oninput="Px()">
+     <script>
+        var  rem = document.getElementById('rem');
+        var px = document.getElementById('px');
+        function Rem(){
+            var remToPx = rem.value;
+            px.value = remToPx*16;
+        }
+        function Px(){
+            var pxToRem = px.value;
+            rem.value = pxToRem/16;
+        }
+        
+     </script>
+
+</body>
+</html>

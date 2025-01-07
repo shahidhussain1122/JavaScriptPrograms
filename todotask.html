@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <label for="">Enter item name</label> <br>
+    <input type="text" id="input">
+    <button id="addTaskBtn">add task</button>
+    <ul id="taskList"></ul>
+    <script>
+        var btn = document.getElementById('addTaskBtn');
+        var taskList = document.getElementById('taskList');
+        var input = document.getElementById('input');
+        btn.addEventListener('click',function(){
+            var li = document.createElement('li');
+            li.textContent = input.value;
+            taskList.appendChild(li);
+            var button = document.createElement('button');
+            button.textContent = "Delete";
+            li.appendChild(button);
+            button.addEventListener('click',function(){
+                li.remove();
+            })
+        })
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1rem  =  16px  -->
+     <!-- 334rem -->
+
+     <label for="">Enter second</label>
+     <input type="number" id="sec" oninput="Sec()">
+     <label for="">Enter mnt</label>
+     <input type="number" id="hr" oninput="Hr()">
+     <script>
+        var  sec = document.getElementById('sec');
+        var hr = document.getElementById('hr');
+        function Sec(){
+            var secTohr = sec.value;
+            hr.value = secTohr/60;
+        }
+        function Hr(){
+            var hrTosec = hr.value;
+            sec.value = hrTosec*60;
+        }
+
+     </script>
+
+</body>
+</html>

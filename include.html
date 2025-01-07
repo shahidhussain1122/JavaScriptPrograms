@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="alert('helo')">click me</button> <br>
+    <textarea  id="input" oninput="changeInput()" rows="10" cols="100"></textarea> <br>
+    <button onclick="changeContent()">change content</button>
+    <p id="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium necessitatibus mollitia accusamus quia adipisci laboriosam praesentium quam architecto blanditiis! Voluptas debitis dolorem dolore exercitationem eos, atque obcaecati fuga consequatur quas?</p>
+    <script src="./first.js"></script>
+    <script>
+        console.log('hello console');
+        // DOM  : Document Object Model
+        // dom selector
+        // getElementById('')
+        var paragraph = document.getElementById('paragraph');
+        var input = document.getElementById('input');
+        function changeContent(){
+            paragraph.innerText = input.value;
+        }
+        function changeInput(){
+            paragraph.innerText = input.value;
+        }
+    </script>
+</body>
+</html>

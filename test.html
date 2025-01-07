@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set and Get Attribute Example</title>
+</head>
+<body>
+    <button id="myButton">Click me</button>
+    <script>
+        // Select the button element
+        const button = document.getElementById('myButton');
+
+        // Set an attribute
+        button.setAttribute('data-color', 'blue');
+
+        // Get the attribute value
+        const color = button.getAttribute('data-color');
+
+        // Log the result
+        console.log(`The button's color is: ${color}`);
+
+        // Add an event listener to change the color when clicked
+        button.addEventListener('click', () => {
+            const newColor = prompt('Enter a new color:');
+            if (newColor) {
+                button.setAttribute('data-color', newColor);
+                console.log(`New color set: ${button.getAttribute('data-color')}`);
+            }
+        });
+    </script>
+</body>
+</html>

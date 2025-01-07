@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select id="select">
+
+    </select>
+
+    <button onclick="createOptions()">create options</button>
+
+    <script>
+        var select = document.getElementById('select');
+        function createOptions(){
+            for(let i = 1;i<=1000;i++){
+                var option = document.createElement('option');
+                option.innerText =  i;
+                select.appendChild(option);
+            }
+        }
+    </script>
+</body>
+</html>

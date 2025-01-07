@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calendar</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 300px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table id="calendar"></table>
+
+    <script>
+        const calendar = document.getElementById('calendar');
+        
+        function createCalendar() {
+            while (calendar.firstChild) {
+                calendar.removeChild(calendar.firstChild);
+            }
+
+            let row = document.createElement('tr');
+            ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(day => {
+                let th = document.createElement('th');
+                th.textContent = day;
+                row.appendChild(th);
+            });
+            calendar.appendChild(row);
+
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth();
+
+            let firstDay = new Date(year, month, 1).getDay();
+            let lastDate = new Date(year, month + 1, 0).getDate();
+            let currentDate = 1;
+            for (let i = 0; i < 6; i++) {
+                row = document.createElement('tr');
+                for (let j = 0; j < 7; j++) {
+                    let cell = document.createElement('td');
+                    if ((i === 0 && j >= firstDay) || currentDate <= lastDate) {
+                        cell.textContent = currentDate++;
+                    }
+                    row.appendChild(cell);
+                }
+                calendar.appendChild(row);
+            }
+        }
+
+        createCalendar();
+    </script>
+</body>
+</html>

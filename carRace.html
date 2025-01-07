@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Race Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            margin: 50px auto;
+            background: #333;
+            overflow: hidden;
+            border: 2px solid #fff;
+        }
+
+        #road {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(#555, #333);
+            animation: roadScroll 2s linear infinite;
+        }
+
+        @keyframes roadScroll {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 0 100%;
+            }
+        }
+
+        .car {
+            position: absolute;
+            bottom: 20px;
+            left: 180px;
+            width: 40px;
+            height: 70px;
+            background: red;
+            border-radius: 5px;
+        }
+
+        .obstacle {
+            position: absolute;
+            top: -70px;
+            width: 40px;
+            height: 70px;
+            background: yellow;
+            border-radius: 5px;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="road"></div>
+        <div class="car" id="playerCar"></div>
+        <div id="score">Score: 0</div>
+    </div>
+
+    <script>
+        const gameContainer = document.getElementById('gameContainer');
+        const playerCar = document.getElementById('playerCar');
+        const road = document.getElementById('road');
+        const scoreDisplay = document.getElementById('score');
+
+        let score = 0;
+        let gameInterval;
+        let obstacles = [];
+
+        // Move player car
+        document.addEventListener('keydown', (e) => {
+            const playerPosition = playerCar.offsetLeft;
+
+            if (e.key === 'ArrowLeft' && playerPosition > 20) {
+                playerCar.style.left = `${playerPosition - 20}px`;
+            } else if (e.key === 'ArrowRight' && playerPosition < 340) {
+                playerCar.style.left = `${playerPosition + 20}px`;
+            }
+        });
+
+        // Generate obstacles
+        function generateObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle');
+            obstacle.style.left = `${Math.random() * (gameContainer.clientWidth - 40)}px`;
+            gameContainer.appendChild(obstacle);
+            obstacles.push(obstacle);
+        }
+
+        // Move obstacles
+        function moveObstacles() {
+            obstacles.forEach((obstacle, index) => {
+                const obstaclePosition = obstacle.offsetTop + 5;
+                obstacle.style.top = `${obstaclePosition}px`;
+
+                // Remove obstacle if out of bounds
+                if (obstaclePosition > gameContainer.clientHeight) {
+                    gameContainer.removeChild(obstacle);
+                    obstacles.splice(index, 1);
+                    score++;
+                    scoreDisplay.textContent = `Score: ${score}`;
+                }
+
+                // Check collision
+                const playerRect = playerCar.getBoundingClientRect();
+                const obstacleRect = obstacle.getBoundingClientRect();
+
+                if (
+                    playerRect.left < obstacleRect.right &&
+                    playerRect.right > obstacleRect.left &&
+                    playerRect.top < obstacleRect.bottom &&
+                    playerRect.bottom > obstacleRect.top
+                ) {
+                    endGame();
+                }
+            });
+        }
+
+        // End game
+        function endGame() {
+            clearInterval(gameInterval);
+            alert(`Game Over! Your Score: ${score}`);
+            window.location.reload();
+        }
+
+        // Start game
+        function startGame() {
+            gameInterval = setInterval(() => {
+                generateObstacle();
+                moveObstacles();
+            }, 100);
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

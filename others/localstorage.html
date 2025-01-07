@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Storage Example</title>
+  </head>
+  <body>
+    <h1>User Management</h1>
+
+    <!-- Input Fields -->
+    <label for="fname">First Name:</label>
+    <input type="text" id="fname" />
+    <label for="lname">Last Name:</label>
+    <input type="text" id="lname" />
+    <label for="email">Email:</label>
+    <input type="email" id="email" />
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" />
+    <label for="address">Address:</label>
+    <input type="text" id="address" />
+    <label for="age">Age:</label>
+    <input type="number" id="age" />
+
+    <button id="addBtn">Add</button>
+
+    <br />
+    <br />
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Age</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="t_data"></tbody>
+    </table>
+
+    <script>
+      const addBtn = document.getElementById("addBtn");
+      const fname = document.getElementById("fname");
+      const lname = document.getElementById("lname");
+      const email = document.getElementById("email");
+      const phone = document.getElementById("phone");
+      const address = document.getElementById("address");
+      const age = document.getElementById("age");
+      const t_data = document.getElementById("t_data");
+
+      let editIndex = null;
+
+      addBtn.addEventListener("click", function () {
+        const user = {
+          FName: fname.value,
+          LName: lname.value,
+          Email: email.value,
+          Phone: phone.value,
+          Address: address.value,
+          Age: age.value,
+        };
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        if (editIndex !== null) {
+          users[editIndex] = user;
+          editIndex = null;
+        } else {
+          users.push(user);
+        }
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+        displayUsers();
+        clearInputs();
+      });
+
+      function displayUsers() {
+        t_data.innerHTML = "";
+
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        users.forEach((user, index) => {
+          const tr = document.createElement("tr");
+
+          Object.values(user).forEach((value) => {
+            const td = document.createElement("td");
+            td.textContent = value;
+            tr.appendChild(td);
+          });
+
+          const actionTd = document.createElement("td");
+
+          const editBtn = document.createElement("button");
+          editBtn.textContent = "Edit";
+          editBtn.addEventListener("click", function () {
+            loadUserForEdit(index);
+          });
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.textContent = "Delete";
+          deleteBtn.addEventListener("click", function () {
+            deleteUser(index);
+          });
+
+          actionTd.appendChild(editBtn);
+          actionTd.appendChild(deleteBtn);
+          tr.appendChild(actionTd);
+
+          t_data.appendChild(tr);
+        });
+      }
+
+      function clearInputs() {
+        fname.value = "";
+        lname.value = "";
+        email.value = "";
+        phone.value = "";
+        address.value = "";
+        age.value = "";
+      }
+
+      function loadUserForEdit(index) {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const user = users[index];
+
+        fname.value = user.FName;
+        lname.value = user.LName;
+        email.value = user.Email;
+        phone.value = user.Phone;
+        address.value = user.Address;
+        age.value = user.Age;
+
+        editIndex = index;
+      }
+
+      function deleteUser(index) {
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        users.splice(index, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+
+        displayUsers();
+      }
+      displayUsers();
+    </script>
+  </body>
+</html>

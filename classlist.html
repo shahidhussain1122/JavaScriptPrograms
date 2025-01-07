@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js classlist</title>
+</head>
+<style>
+    .active{
+        display: none;
+    }
+</style>
+<body>
+    <form action="" id="myform">
+        <label for="">F_Name</label>
+        <input type="text">
+        <br>
+        <label for="">L_Name</label>
+        <input type="text" name="" id="">
+        <br>
+        <label for="">Email</label>
+        <input type="email">
+
+        <br><br>
+        <button >Submit</button>
+
+    </form>
+    <button onclick="showHideForm(event)"  id="hideShowBtn">Hide</button>
+
+
+    <script>
+        var myform = document.getElementById('myform');
+        var hideShowBtn = document.getElementById('hideShowBtn');
+        function showHideForm(evt){
+            evt.preventDefault();
+            myform.classList.toggle('active');
+            if(myform.classList.contains('active')){
+                hideShowBtn.textContent = "Show";
+            }else{
+                hideShowBtn.textContent = "Hide";
+            }
+        }
+        hideShowBtn.addEventListener('mouseover',function(){
+                myform.style.backgroundColor = "green";
+            })
+            hideShowBtn.addEventListener('mouseout',function(){
+                myform.style.backgroundColor="white";
+            })
+        // event listener
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="cart">
+        <li data-item="shirt" data-quantity="1">Shirt ($15)</li>
+        <li data-item="pants" data-quantity="2">Pants ($30)</li>
+        <li data-item="shoes" data-quantity="1">Shoes ($50)</li>
+      </ul>
+      
+
+      <button id="updateQuantity">Update Quantity</button>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartList = document.getElementById('cart');
+            const updateBtn = document.getElementById('updateQuantity');
+          
+            // Function to update total cost based on quantities
+            function updateTotalCost() {
+              let totalCost = 0;
+              const items = cartList.children;
+          
+              for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                const quantity = parseInt(item.getAttribute('data-quantity'));
+                const price = parseFloat(item.textContent.split('$')[1]);
+          
+                totalCost += quantity * price;
+              }
+          
+              document.getElementById('totalCost').textContent = `Total: $${totalCost.toFixed(2)}`;
+            }
+          
+            // Update quantity when button is clicked
+            updateBtn.addEventListener('click', () => {
+              const newQuantities = prompt('Enter new quantities (comma-separated):');
+              
+              if (newQuantities) {
+                const quantArray = newQuantities.split(',');
+                
+                for (let i = 0; i < quantArray.length; i++) {
+                  const item = cartList.children[i];
+                  item.setAttribute('data-quantity', quantArray[i].trim());
+                  
+                  // Update displayed quantity
+                  const textContent = item.textContent.split('(')[0];
+                  item.textContent = `${textContent} x${quantArray[i].trim()} ($${parseFloat(textContent.split('$')[1]) * quantArray[i].trim()})`;
+                }
+          
+                updateTotalCost();
+              }
+            });
+          
+            // Initial total cost calculation
+            updateTotalCost();
+          });
+          
+      </script>
+</body>
+</html>

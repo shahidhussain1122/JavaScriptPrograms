@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="product-container">
+        <h2 id="productName">Product Name</h2>
+        <p id="productDescription">Description goes here...</p>
+        <p id="productPrice">$99.99</p>
+        <button id="updateDetails">Update Details</button>
+      </div>
+
+
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productName = document.getElementById('productName');
+            const productDescription = document.getElementById('productDescription');
+            const productPrice = document.getElementById('productPrice');
+            const updateBtn = document.getElementById('updateDetails');
+          
+            // Function to update product details
+            function updateProductInfo() {
+              const newName = prompt('Enter new product name:');
+              const newDesc = prompt('Enter new description:');
+              const newPrice = prompt('Enter new price:');
+          
+              if (newName) {
+                productName.textContent = newName;
+                productName.setAttribute('data-original-name', productName.getAttribute('data-original-name') || newName);
+              }
+          
+              if (newDesc) {
+                productDescription.textContent = newDesc;
+                productDescription.setAttribute('data-description', newDesc);
+              }
+          
+              if (newPrice) {
+                productPrice.textContent = `$${newPrice}`;
+                productPrice.setAttribute('data-price', newPrice);
+              }
+            }
+          
+            // Add event listener to update button
+            updateBtn.addEventListener('click', updateProductInfo);
+          
+            // Function to restore original details
+            function restoreOriginalDetails() {
+              const originalName = productName.getAttribute('data-original-name');
+              const originalDesc = productDescription.getAttribute('data-description');
+              const originalPrice = productPrice.getAttribute('data-price');
+          
+              if (originalName) productName.textContent = originalName;
+              if (originalDesc) productDescription.textContent = originalDesc;
+              if (originalPrice) productPrice.textContent = `$${originalPrice}`;
+            }
+          
+            // Add event listener to restore original details
+            productName.addEventListener('dblclick', restoreOriginalDetails);
+            productDescription.addEventListener('dblclick', restoreOriginalDetails);
+            productPrice.addEventListener('dblclick', restoreOriginalDetails);
+          });
+          
+          // Initialize with sample data
+          document.addEventListener('DOMContentLoaded', () => {
+            const productName = document.getElementById('productName');
+            const productDescription = document.getElementById('productDescription');
+            const productPrice = document.getElementById('productPrice');
+          
+            productName.textContent = 'Smartphone X500';
+            productName.setAttribute('data-original-name', 'Smartphone X500');
+          
+            productDescription.textContent = 'High-end smartphone with advanced camera and AI capabilities.';
+            productDescription.setAttribute('data-description', 'High-end smartphone with advanced camera and AI capabilities.');
+          
+            productPrice.textContent = '$999.99';
+            productPrice.setAttribute('data-price', '999.99');
+          });
+          
+      </script>
+      
+</body>
+</html>

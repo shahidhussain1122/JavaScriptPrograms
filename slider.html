@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Slider</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .slider-container {
+      width: 800px;
+      height: 400px;
+      overflow: hidden;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%; /* 100% for each slide */
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides img {
+      width: 800px;
+      height: 400px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+  </style>
+  <body>
+    <div class="slider-container">
+      <div class="slides">
+        <img
+          src="https://via.placeholder.com/800x400?text=Slide+1"
+          alt="Slide 1"
+        />
+        <img
+          src="https://via.placeholder.com/800x400?text=Slide+2"
+          alt="Slide 2"
+        />
+        <img
+          src="https://via.placeholder.com/800x400?text=Slide+3"
+          alt="Slide 3"
+        />
+      </div>
+    </div>
+    <script>
+      const slides = document.querySelector(".slides");
+      const totalSlides = slides.children.length;
+      let currentIndex = 0;
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Automatically trigger the next slide after 3 seconds
+        setTimeout(nextSlide, 3000);
+      }
+
+      // Start the slider
+      setTimeout(nextSlide, 3000);
+    </script>
+  </body>
+</html>

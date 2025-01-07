@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1kg  =  1000g  -->
+    
+
+     <label for="">Enter gram</label>
+     <input type="number" id="gram" oninput="gram()">
+     <label for="">Enter kg</label>
+     <input type="number" id="kg" oninput="kg()">
+     <script>
+        var  Gram = document.getElementById('gram');
+        var Kg = document.getElementById('kg');
+        function gram(){
+            var gramTokg = Gram.value;
+            Kg.value = gramTokg/1000;
+        }
+        function kg(){
+            var kgTogram = Kg.value;
+            Gram.value = kgTogram*1000;
+        }
+
+     </script>
+
+</body>
+</html>

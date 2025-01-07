@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" id="num">
+    <p id="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit eaque magni labore similique impedit consequatur nihil repellendus modi harum iusto. Aliquid totam reiciendis illo fugit, nostrum odio ut corporis animi!</p>
+
+    <button onclick="changeFont()"> changeFont</button>
+
+    <script>
+
+     var text=document.getElementById('text');
+     var num=document.getElementById('num')
+     function changeFont(){
+      text.style.fontSize=num.value+'px';
+
+
+     }
+
+    </script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ad Display Example</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .ad {
+        display: none;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #ffeb3b;
+        border: 1px solid #fbc02d;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to Our Website</h1>
+      <p>Enjoy browsing our content!</p>
+      <div id="ad1" class="ad">This is the first advertisement. Check out our latest offers!</div>
+      <div id="ad2" class="ad">This is the second advertisement. Don't miss our special deals!</div>
+    </div>
+
+    <script>
+      function showAd1() {
+        var ad1 = document.getElementById("ad1");
+        ad1.style.display = "block";
+        setTimeout(hideAd1, 5000); 
+      }
+
+      function hideAd1() {
+        var ad1 = document.getElementById("ad1");
+        ad1.style.display = "none";
+        showAd2(); 
+      }
+
+      function showAd2() {
+        var ad2 = document.getElementById("ad2");
+        ad2.style.display = "block";
+      }
+
+      setTimeout(showAd1, 5000);
+    </script>
+  </body>
+</html>

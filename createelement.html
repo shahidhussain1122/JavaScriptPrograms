@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>how to create element dynamically in js</title>
+  </head>
+  <body>
+    <!-- document.createElement('h1') -->
+
+    <div id="root"></div>
+
+    <button onclick="createElements()">create element</button>
+
+    <script>
+      var root = document.getElementById("root");
+      function createElements() {
+        var h1 = document.createElement("h1");
+        var textNode = document.createTextNode('helo element');
+        h1.appendChild(textNode);
+        root.appendChild(h1);
+      }
+    </script>
+  </body>
+</html>

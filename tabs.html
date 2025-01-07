@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial;}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+</head>
+<body>
+
+<h2>Tabs</h2>
+<div class="tab">
+  <button class="tablinks" onclick="openCity('html')">html</button>
+  <button class="tablinks" onclick="openCity('css')">css</button>
+  <button class="tablinks" onclick="openCity('js')">js</button>
+</div>
+
+<div id="html" class="tabcontent">
+  <h3>html</h3>
+  <p>html is hypertext markup language.</p>
+</div>
+
+<div id="css" class="tabcontent">
+  <h3>css</h3>
+  <p>css is cascading style sheet.</p> 
+</div>
+
+<div id="js" class="tabcontent">
+  <h3>js</h3>
+  <p>js is programming and scripting language.</p>
+</div>
+
+<script>
+function openCity(cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  document.getElementById(cityName).style.display = "block";
+}
+</script>
+</body>
+</html> 

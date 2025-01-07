@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Example</title>
+  </head>
+  <body>
+    <h2>User Management</h2>
+    <label for="name">Name:</label>
+    <input type="text" id="name" />
+    <br />
+    <label for="email">Email:</label>
+    <input type="email" id="email" />
+    <br /><br />
+    <button id="addBtn">Add User</button>
+    <hr />
+    <h3>User List</h3>
+    <div id="userList"></div>
+
+    <script>
+      var nameInput = document.getElementById("name");
+      var emailInput = document.getElementById("email");
+      var addBtn = document.getElementById("addBtn");
+      var userList = document.getElementById("userList");
+
+      function loadUsers() {
+        var users = JSON.parse(localStorage.getItem("users")) || [];
+        userList.innerHTML = "";
+        users.forEach(function (user, index) {
+          userList.innerHTML += `
+            <p>Name: ${user.Name}, Email: ${user.Email}
+              <button onclick="editUser(${index})">Edit</button>
+              <button onclick="deleteUser(${index})">Delete</button>
+            </p>
+          `;
+        });
+      }
+
+      addBtn.addEventListener("click", function () {
+        var name = nameInput.value;
+        var email = emailInput.value;
+
+        if (name && email) {
+          var users = JSON.parse(localStorage.getItem("users")) || [];
+          users.push({ Name: name, Email: email });
+          localStorage.setItem("users", JSON.stringify(users));
+
+          nameInput.value = "";
+          emailInput.value = "";
+
+          loadUsers();
+        } else {
+          alert("Please fill in both fields!");
+        }
+      });
+
+      function editUser(index) {
+        var users = JSON.parse(localStorage.getItem("users"));
+        nameInput.value = users[index].Name;
+        emailInput.value = users[index].Email;
+        users.splice(index, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+
+        loadUsers();
+      }
+
+      function deleteUser(index) {
+        var users = JSON.parse(localStorage.getItem("users"));
+        users.splice(index, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+
+        loadUsers();
+      }
+
+      loadUsers();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto-Save Example</title>
+</head>
+<body>
+    <textarea id="editor" placeholder="Start typing..."></textarea>
+    <p id="status"></p>
+
+    <script>
+        let timeoutID;
+
+        function autoSave() {
+            document.getElementById('status').innerText = "Saving...";
+            setTimeout(() => {
+                document.getElementById('status').innerText = "Saved!";
+            }, 1000);
+        }
+        document.getElementById('editor').addEventListener('input', () => {
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(autoSave, 2000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js dom class selector</title>
+</head>
+<style>
+    .main{
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .main .container{
+        width: 20%;
+        height: 150px;
+        background-color: rgb(96, 41, 1);
+        text-align: center;
+        line-height: 150px;
+        font-weight: bold;
+        font-family: Algerian;
+        font-size: 3rem;
+        color: white;
+    }
+</style>
+<body>
+
+    <div class="main">
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+        <div class="container"></div>
+    </div>
+
+    <input type="color" id="color">
+    <br>
+    <input type="number" id="radius">
+
+    <br>
+    <button onclick="changeStyle()">Change Style</button>
+    <script>
+        function changeStyle(){
+        var bgColor = document.getElementById('color');
+        var radius = document.getElementById('radius');
+        var containers = document.getElementsByClassName('container');
+        var containerCss = `
+            border-radius:${radius.value}px;
+            background-color:${bgColor.value};`;
+        for(let i = 0;i<containers.length;i++){
+            containers[i].innerHTML = "CodeDevs";
+            containers[i].style.cssText = containerCss;
+        }
+    }
+    </script>
+</body>
+</html>

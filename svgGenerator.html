@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Shape Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        .controls div {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #preview {
+            border: 1px solid #ccc;
+            background-color: white;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .output {
+            margin-top: 20px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SVG Shape Generator</h1>
+        <div class="controls">
+            <div>
+                <label for="shape">Shape:</label>
+                <select id="shape" onchange="updateInputs()">
+                    <option value="circle">Circle</option>
+                    <option value="rectangle">Rectangle</option>
+                    <option value="ellipse">Ellipse</option>
+                    <option value="polygon">Polygon</option>
+                </select>
+            </div>
+            <div id="inputs">
+               
+            </div>
+            <div>
+                <label for="color">Fill Color:</label>
+                <input type="color" id="color" value="#ff0000">
+            </div>
+            <button onclick="generateSVG()">Generate SVG</button>
+        </div>
+
+        <div id="preview">
+            <svg id="svgCanvas" width="100%" height="100%"></svg>
+        </div>
+
+        <div class="output">
+            <h3>Generated SVG Code:</h3>
+            <textarea id="svgCode" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        const inputsContainer = document.getElementById('inputs');
+        const svgCanvas = document.getElementById('svgCanvas');
+        const svgCode = document.getElementById('svgCode');
+        const shapeSelector = document.getElementById('shape');
+        const colorPicker = document.getElementById('color');
+
+        function updateInputs() {
+            const shape = shapeSelector.value;
+            inputsContainer.innerHTML = ''; 
+
+            if (shape === 'circle') {
+                inputsContainer.innerHTML = `
+                    <div>
+                        <label for="cx">Center X:</label>
+                        <input type="number" id="cx" value="150">
+                    </div>
+                    <div>
+                        <label for="cy">Center Y:</label>
+                        <input type="number" id="cy" value="150">
+                    </div>
+                    <div>
+                        <label for="r">Radius:</label>
+                        <input type="number" id="r" value="50">
+                    </div>`;
+            } else if (shape === 'rectangle') {
+                inputsContainer.innerHTML = `
+                    <div>
+                        <label for="x">X:</label>
+                        <input type="number" id="x" value="50">
+                    </div>
+                    <div>
+                        <label for="y">Y:</label>
+                        <input type="number" id="y" value="50">
+                    </div>
+                    <div>
+                        <label for="width">Width:</label>
+                        <input type="number" id="width" value="200">
+                    </div>
+                    <div>
+                        <label for="height">Height:</label>
+                        <input type="number" id="height" value="100">
+                    </div>`;
+            } else if (shape === 'ellipse') {
+                inputsContainer.innerHTML = `
+                    <div>
+                        <label for="cx">Center X:</label>
+                        <input type="number" id="cx" value="150">
+                    </div>
+                    <div>
+                        <label for="cy">Center Y:</label>
+                        <input type="number" id="cy" value="150">
+                    </div>
+                    <div>
+                        <label for="rx">Radius X:</label>
+                        <input type="number" id="rx" value="100">
+                    </div>
+                    <div>
+                        <label for="ry">Radius Y:</label>
+                        <input type="number" id="ry" value="50">
+                    </div>`;
+            } else if (shape === 'polygon') {
+                inputsContainer.innerHTML = `
+                    <div>
+                        <label for="points">Points:</label>
+                        <input type="text" id="points" value="100,50 200,150 50,150">
+                        <small>Enter coordinates separated by spaces (e.g., "100,50 200,150 50,150").</small>
+                    </div>`;
+            }
+        }
+
+        function generateSVG() {
+            const shape = shapeSelector.value;
+            const fill = colorPicker.value;
+            let shapeElement = '';
+
+            if (shape === 'circle') {
+                const cx = document.getElementById('cx').value;
+                const cy = document.getElementById('cy').value;
+                const r = document.getElementById('r').value;
+                shapeElement = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fill}" />`;
+            } else if (shape === 'rectangle') {
+                const x = document.getElementById('x').value;
+                const y = document.getElementById('y').value;
+                const width = document.getElementById('width').value;
+                const height = document.getElementById('height').value;
+                shapeElement = `<rect x="${x}" y="${y}" width="${width}" height="${height}" fill="${fill}" />`;
+            } else if (shape === 'ellipse') {
+                const cx = document.getElementById('cx').value;
+                const cy = document.getElementById('cy').value;
+                const rx = document.getElementById('rx').value;
+                const ry = document.getElementById('ry').value;
+                shapeElement = `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${fill}" />`;
+            } else if (shape === 'polygon') {
+                const points = document.getElementById('points').value;
+                shapeElement = `<polygon points="${points}" fill="${fill}" />`;
+            }
+
+            const svgContent = `<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">${shapeElement}</svg>`;
+            svgCanvas.innerHTML = shapeElement;
+            svgCode.value = svgContent;
+        }
+
+        updateInputs();
+    </script>
+</body>
+</html>

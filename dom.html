@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea  id="contnet" rows="10" cols="100"></textarea>
+    <p id="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem iusto, eaque iure ex placeat ipsam quas iste earum consequuntur maiores sunt est rem beatae ducimus quis perspiciatis distinctio vero repudiandae.</p>
+
+    <button onclick="changeContent()">change content</button>
+
+
+    <script>
+        function changeContent(){
+            var content = document.getElementById('contnet');
+            var paragraph = document.getElementById('para');
+            paragraph.innerText = content.value;
+           // paragraph.innerHTML = "<h1>hello</h1>";
+        }
+    
+    </script>
+</body>
+</html>

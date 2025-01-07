@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Example</title>
+    <style>
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <button id="showLoader">Show Loader</button>
+
+    <script>
+        function showLoader() {
+            const loader = document.createElement('div');
+            loader.textContent = 'Loading...';
+            loader.className = 'loader';
+            document.body.appendChild(loader);
+        }
+
+        function hideLoader() {
+            const loader = document.querySelector('.loader');
+            if (loader) {
+                document.body.removeChild(loader);
+            }
+        }
+
+        function toggleLoader(delay = 3000) {
+            showLoader();
+            
+            setTimeout(() => {
+                hideLoader();
+            }, delay);
+        }
+
+        const showButton = document.getElementById('showLoader');
+        showButton.addEventListener('click', () => {
+            toggleLoader(2000); 
+        });
+    </script>
+</body>
+</html>

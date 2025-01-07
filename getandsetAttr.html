@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>get and set attribute</title>
+  </head>
+  <style>
+    .container{
+        width: 100%;
+        height: 100px;
+        background-color: brown;
+    }
+    .active{
+        background-color: orange;
+    }
+  </style>
+  <body>
+    <div class="container" id="container"></div>
+    <button onclick="ChangeBg()">click</button>
+    <p id="txt">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus,
+      ratione.
+    </p>
+    <script>
+      var para = document.getElementById("txt");
+      var container = document.getElementById("container");
+      var attr = para.getAttribute("id");
+      if (attr) {
+        console.log("included");
+      } else {
+        console.log("not");
+      }
+      function ChangeBg(){
+        container.setAttribute('class','container active');
+      }
+    </script>
+  </body>
+</html>
