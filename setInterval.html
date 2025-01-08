@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="sec">0</span>
+    <span id="mnt">0</span>
+    <button id="startBtn">start</button>
+    <script>
+        var sec = document.getElementById('sec');
+        var startBtn = document.getElementById('startBtn');
+        var number = Number.parseInt(sec.textContent);
+        startBtn.addEventListener('click',()=>{
+            //console.log(typeof(number))
+            setInterval(()=>{
+                sec.textContent = number++
+            },1000)
+        })
+       var id =  setInterval(() => {
+            console.log("helo world")
+        }, 1000);
+
+        setInterval(()=>{
+            clearInterval(id);
+        },4000)
+    </script>
+</body>
+</html>
