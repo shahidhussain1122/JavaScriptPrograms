@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Library Book</title>
+</head>
+<body>
+    <h1>Open Library Book Information</h1>
+    <div id="book-info"></div>
+
+    <script>
+        const bookInfo = document.getElementById('book-info');
+
+        async function fetchBookInfo() {
+            try {
+                const response = await fetch('https://openlibrary.org/works/OL362085W.json');
+                const data = await response.json();
+
+                if (data) {
+                    bookInfo.innerHTML = `
+                        <h3>${data.title}</h3>
+                        <p><strong>Author:</strong> ${data.authors ? data.authors.map(author => author.name).join(', ') : 'N/A'}</p>
+                        <p><strong>Published:</strong> ${data.publish_date || 'N/A'}</p>
+                        <p><strong>Description:</strong> ${data.description ? data.description.value : 'No description available.'}</p>
+                    `;
+                } else {
+                    bookInfo.innerHTML = '<p>Book information not found.</p>';
+                }
+            } catch (error) {
+                bookInfo.innerHTML = '<p>An error occurred while fetching book information.</p>';
+            }
+        }
+
+        fetchBookInfo();
+    </script>
+</body>
+</html>

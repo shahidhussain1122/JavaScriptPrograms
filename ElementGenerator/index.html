@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Element Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .controls select, .controls input, .controls button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    .output-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .output, .code {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: auto;
+    }
+
+    .output {
+      background-color: #e9f7ef;
+    }
+
+    .code {
+      background-color: #fdf2e9;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Advanced HTML Element Generator</h1>
+
+  <div class="controls">
+    <label for="elementType">Select Element Type:</label>
+    <select id="elementType">
+      <option value="div">Div</option>
+      <option value="span">Span</option>
+      <option value="p">Paragraph</option>
+      <option value="button">Button</option>
+      <option value="h1">Heading 1 (H1)</option>
+      <option value="input">Input</option>
+    </select>
+
+    <label for="customElement">or Enter Element Name:</label>
+    <input type="text" id="customElement" placeholder="e.g., section" />
+
+    <label for="textContent">Text Content:</label>
+    <input type="text" id="textContent" placeholder="e.g., Hello World" />
+
+    <label for="attributeName">Attribute Name:</label>
+    <input type="text" id="attributeName" placeholder="e.g., class" />
+
+    <label for="attributeValue">Attribute Value:</label>
+    <input type="text" id="attributeValue" placeholder="e.g., my-class" />
+
+    <button id="generate">Generate Element</button>
+  </div>
+
+  <div class="output-container">
+    <div class="output" id="output">Generated elements will appear here...</div>
+    <div class="code" id="code">Code of the element will appear here...</div>
+  </div>
+
+  <script>
+    document.getElementById("generate").addEventListener("click", () => {
+      const elementType = document.getElementById("elementType").value;
+      const customElement = document.getElementById("customElement").value.trim();
+      const textContent = document.getElementById("textContent").value;
+      const attributeName = document.getElementById("attributeName").value.trim();
+      const attributeValue = document.getElementById("attributeValue").value.trim();
+
+      // Determine the element type to create
+      const elementName = customElement || elementType;
+
+      if (!elementName) {
+        alert("Please specify a valid element name.");
+        return;
+      }
+
+      // Create the element
+      const newElement = document.createElement(elementName);
+      if (textContent) {
+        newElement.textContent = textContent;
+      }
+      if (attributeName && attributeValue) {
+        newElement.setAttribute(attributeName, attributeValue);
+      }
+
+      // Append the element to the output div
+      const outputDiv = document.getElementById("output");
+      outputDiv.appendChild(newElement);
+
+      // Generate code for the created element
+      const codeDiv = document.getElementById("code");
+      let code = `<${elementName}`;
+      if (attributeName && attributeValue) {
+        code += ` ${attributeName}="${attributeValue}"`;
+      }
+      code += textContent ? `>${textContent}</${elementName}>` : ` />`;
+      codeDiv.textContent = code;
+    });
+  </script>
+</body>
+</html>

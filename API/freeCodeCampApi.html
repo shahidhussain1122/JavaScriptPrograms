@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Notes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+      }
+      
+      header {
+        background-color: #0074d9;
+        color: white;
+        text-align: center;
+        padding: 20px 10px;
+      }
+      
+      header h1 {
+        margin: 0;
+      }
+      
+      main {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      #content-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      
+      .card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s;
+      }
+      
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .card h3 {
+        margin: 0;
+        padding: 15px;
+        background-color: #0074d9;
+        color: white;
+        font-size: 18px;
+      }
+      
+      .card p {
+        padding: 15px;
+        font-size: 14px;
+        color: #333;
+        line-height: 1.6;
+      }
+      
+      .card a {
+        display: block;
+        padding: 10px 15px;
+        text-align: center;
+        color: white;
+        background: #28a745;
+        text-decoration: none;
+        border-top: 1px solid #ddd;
+      }
+      
+      .card a:hover {
+        background: #218838;
+      }
+      
+</style>
+<body>
+  <header>
+    <h1>Learn Python with FreeCodeCamp</h1>
+  </header>
+  <main>
+    <div id="content-container">
+      <!-- Content will be loaded here -->
+    </div>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const container = document.getElementById("content-container");
+      
+        async function fetchPythonNotes() {
+          try {
+            const response = await fetch("https://www.freecodecamp.org/news/learn-python-api");
+            
+            if (!response.ok) {
+              throw new Error("Failed to fetch content");
+            }
+      
+            const data = await response.json(); 
+            
+            const notes = data.notes; 
+            container.innerHTML = notes
+              .map(note => `
+                <div class="card">
+                  <h3>${note.title}</h3>
+                  <p>${note.description || "No description available."}</p>
+                  <a href="${note.url}" target="_blank">Read More</a>
+                </div>
+              `)
+              .join("");
+          } catch (error) {
+            container.innerHTML = `<p>Error loading content: ${error.message}</p>`;
+          }
+        }
+      
+        fetchPythonNotes();
+      });
+      
+  </script>
+</body>
+</html>
